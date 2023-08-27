@@ -7,8 +7,8 @@ import img2 from "../assets/2.jpg"
 import img3 from "../assets/3.jpg"
 import img4 from "../assets/4.jpg"
 import gtaTrack from "../assets/gta.mp3"
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import VolumeUpIcon from "@mui/icons-material/VolumeUp"
+import VolumeOffIcon from "@mui/icons-material/VolumeOff"
 
 export const BgSlider = () => {
   const settings = {
@@ -16,6 +16,7 @@ export const BgSlider = () => {
     fade: false,
     accessibility: false,
     infinite: true,
+    pauseOnHover: false,
     autoplay: true,
     autoplaySpeed: 5000,
     speed: 500,
@@ -35,6 +36,7 @@ export const BgSlider = () => {
   useEffect(() => {
     if (togglePlayPause) {
       audio.play()
+      // audio.pause()
       console.log("play", togglePlayPause)
     } else {
       audio.pause()
@@ -44,10 +46,10 @@ export const BgSlider = () => {
 
   return (
     <>
+      <button className="playpause" onClick={playPause}>
+        <span>{togglePlayPause ? <VolumeUpIcon /> : <VolumeOffIcon />}</span>
+      </button>
       <div className="sliderWrap">
-        <button className="playpause" onClick={playPause}>
-          <span>{togglePlayPause ? <VolumeUpIcon /> : <VolumeOffIcon />}</span>
-        </button>
         <Slider {...settings}>
           <div className="sliderImg">
             <img className="" src={img1} />
