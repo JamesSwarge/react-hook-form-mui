@@ -1,5 +1,5 @@
-import { ReactNode, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { ReactNode, useState } from "react"
+import { useForm, Controller } from "react-hook-form"
 import { DevTool } from "@hookform/devtools"
 import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField, FormHelperText, Checkbox, FormGroup, InputLabel, MenuItem, Select } from "@mui/material"
 import InputMask from "react-input-mask"
@@ -18,20 +18,19 @@ type FormValues = {
 }
 
 export const LoginForm = () => {
-  const [displayData, setDisplayData] = useState(false)
+  const [submitStatus, setsubmitStatus] = useState(false)
   const form = useForm<FormValues>({
     defaultValues: {}
   })
   const { register, handleSubmit, formState, control } = form
-  const { errors } = formState
+  const { errors, isSubmitted } = formState
 
   const onSubmit = (data: FormValues) => {
-    console.log("form submitted", data)
+    console.log("form submitted", isSubmitted, data)
+    if (isSubmitted) {
+      setsubmitStatus(true)
+    }
   }
-
-  const onChangeInp:Function = (e:any) => {
-    console.log('onChangeInp', e)
-  }  
 
   renderCount++
 
@@ -50,7 +49,7 @@ export const LoginForm = () => {
               className={`customInput`}
               error={!!errors.fname}
               helperText={errors.fname?.message}
-              {...register("fname", {required: "Firstname is required!"})}
+              {...register("fname", { required: "Firstname is required!" })}
             />
             <TextField
               fullWidth
@@ -60,7 +59,7 @@ export const LoginForm = () => {
               className={`customInput`}
               error={!!errors.lname}
               helperText={errors.lname?.message}
-              {...register("lname", {required: "Lastname is required!"})}
+              {...register("lname", { required: "Lastname is required!" })}
             />
           </div>
 
@@ -68,9 +67,9 @@ export const LoginForm = () => {
             <FormControl fullWidth component="fieldset" variant="standard" error={!!errors.gender}>
               <FormLabel>Gender</FormLabel>
               <RadioGroup row name="gender" defaultValue="male">
-                <FormControlLabel value="male" control={<Radio {...register("gender", {required: "Gender is required!"})}/>} label="Male" />
-                <FormControlLabel value="female" control={<Radio {...register("gender", {required: "Gender is required!"})} />} label="Female" />
-                <FormControlLabel value="other" control={<Radio {...register("gender", {required: "Gender is required!"})} />} label="Other" />
+                <FormControlLabel value="male" control={<Radio {...register("gender", { required: "Gender is required!" })} />} label="Male" />
+                <FormControlLabel value="female" control={<Radio {...register("gender", { required: "Gender is required!" })} />} label="Female" />
+                <FormControlLabel value="other" control={<Radio {...register("gender", { required: "Gender is required!" })} />} label="Other" />
               </RadioGroup>
               <FormHelperText>{!!errors.gender && errors.gender?.message}</FormHelperText>
             </FormControl>
@@ -128,11 +127,9 @@ export const LoginForm = () => {
           <div className="form_row">
             <FormControl component="fieldset" variant="standard" fullWidth error={!!errors.chk1}>
               <FormGroup>
-                <FormControlLabel 
-                  control={
-                    <Checkbox defaultChecked sx={{ "& .MuiSvgIcon-root": { fontSize: 20 } }} {...register("chk1", {required: "Please tick the checkbox"})} />
-                  } 
-                  label="Recieve daily updates from us" 
+                <FormControlLabel
+                  control={<Checkbox defaultChecked sx={{ "& .MuiSvgIcon-root": { fontSize: 20 } }} {...register("chk1", { required: "Please tick the checkbox" })} />}
+                  label="Recieve daily updates from us"
                 />
               </FormGroup>
               <FormHelperText>{!!errors.chk1 && errors.chk1?.message}</FormHelperText>
@@ -142,11 +139,9 @@ export const LoginForm = () => {
           <div className="form_row">
             <FormControl component="fieldset" variant="standard" fullWidth error={!!errors.chk2}>
               <FormGroup>
-                <FormControlLabel 
-                  control={
-                    <Checkbox sx={{ "& .MuiSvgIcon-root": { fontSize: 20 } }} {...register("chk2", {required: "Please tick the checkbox"})} />
-                  } 
-                  label="Accept Terms & Conditions" 
+                <FormControlLabel
+                  control={<Checkbox sx={{ "& .MuiSvgIcon-root": { fontSize: 20 } }} {...register("chk2", { required: "Please tick the checkbox" })} />}
+                  label="Accept Terms & Conditions"
                 />
               </FormGroup>
               <FormHelperText>{!!errors.chk2 && errors.chk2?.message}</FormHelperText>
@@ -155,7 +150,7 @@ export const LoginForm = () => {
 
           <div className="form_row">
             <Button fullWidth type="submit" variant="contained" color="primary" size="large">
-              Login
+              {submitStatus ? "Submitted" : "Submit"}
             </Button>
           </div>
         </div>

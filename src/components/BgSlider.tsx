@@ -27,7 +27,7 @@ export const BgSlider = () => {
   const audio = new Audio(gtaTrack)
   const playPause = () => {
     if (togglePlayPause) {
-      console.log("Paused()")
+      // console.log("Paused()")
       audio.pause()
     }
     setTogglePlayPause(!togglePlayPause)
@@ -37,10 +37,10 @@ export const BgSlider = () => {
     if (togglePlayPause) {
       audio.play()
       // audio.pause()
-      console.log("play", togglePlayPause)
+      // console.log("play", togglePlayPause)
     } else {
       audio.pause()
-      console.log("pause", togglePlayPause)
+      // console.log("pause", togglePlayPause)
     }
   }, [togglePlayPause])
 
